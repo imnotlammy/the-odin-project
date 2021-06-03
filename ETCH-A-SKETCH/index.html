@@ -18,6 +18,10 @@
 
         function createCanvas(numOfSquares) {
             let i = 1;
+
+            if (numOfSquares > 100) {
+                let numOfSquares = prompt('Please enter a valid selection')
+            }
             while (i <= numOfSquares * numOfSquares) {
                 const div = document.createElement('div');
                 div.id = i;
