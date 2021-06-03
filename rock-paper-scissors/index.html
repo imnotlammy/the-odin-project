@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Sigmar+One&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <h1>Rock Paper Scissors</h1>
+  <p>Choose your weapon:</p>
+
+  <div class="buttons">
+    <div id="rock" class="button"><img src="assets/rock.png"></div>
+    <div id="paper" class="button"><img src="assets/paper.png"></div>
+    <div id="scissors" class="button"><img src="assets/scissors.png"></div>
+  </div>
+
+  <script>
+    let playerScore = 0;
+    let computerScore = 0;
+
+    const buttonRock = document.querySelector('#rock');
+    buttonRock.addEventListener('click', function () {
+      playRound('Rock');
+    });
+
+    const buttonPaper = document.querySelector('#paper');
+    buttonPaper.addEventListener('click', function () {
+      playRound('Paper');
+    });
+
+    const buttonScissors = document.querySelector('#scissors');
+    buttonScissors.addEventListener('click', function () {
+      playRound('Scissors');
+    });
+
+    const results = document.createElement('div');
+    results.classList.add('results');
+    results.textContent = "First to 5 wins!"
+    document.body.appendChild(results);
+
+    const score = document.createElement('div');
+    score.classList.add('score');
+    document.body.appendChild(score);
+
+    function playRound(playerSelection) {
+      let options = ["Rock", "Paper", "Scissors"];
+      let computerSelection = (options[Math.floor(Math.random() * 3)]);
+
+      switch (true) {
+        case (computerSelection == playerSelection):
+          results.textContent = "It's a tie! Both picked " + playerSelection;
+          score.textContent = "Player: " + playerScore + " Computer: " + computerScore;
+          break;
+        case (computerSelection == 'Rock' && playerSelection == 'Scissors'):
+        case (computerSelection == 'Paper' && playerSelection == 'Rock'):
+        case (computerSelection == 'Scissors' && playerSelection == 'Paper'):
+          results.textContent = "You lose! " + computerSelection + " beats " + playerSelection;
+          computerScore += 1;
+          score.textContent = "Player: " + playerScore + " Computer: " + computerScore;
+          break;
+        case (playerSelection != 'Rock' && playerSelection != 'Paper' && playerSelection != 'Scissors'):
+          results.textContent = 'Error! Try again';
+          return 'error';
+          break;
+        default:
+          results.textContent = "You win! " + playerSelection + " beats " + computerSelection;
+          playerScore += 1;
+          score.textContent = "Player: " + playerScore + " Computer: " + computerScore;
+      }
+
+      if(playerScore == 5) {
+        results.textContent = "You win!";
+        buttons.style.display = 'none';
+      } else if (computerScore == 5) {
+        results.textContent = "You lose!"
+        buttons.style.display = 'none';
+      }
+    }
+
+  </script>
+</body>
+
+</html>
